@@ -1,0 +1,161 @@
+# README – Gemini SQL Assistant (SQLite3 + Streamlit Project)
+
+## 📘 Project Overview
+This project is an **AI-powered SQL Assistant** that converts **natural language questions** into valid **SQL queries** using **Google Gemini API** and executes them on a local **SQLite3 database**.  
+It also displays:
+- The **generated SQL query**
+- The **result** of the query
+- A **step-by-step explanation** of how the SQL query works
+
+This makes it perfect for learning, quick data exploration, or integrating AI-based database interaction in applications.
+
+---
+
+## 🧠 Features
+✅ Converts **English questions → SQL queries**  
+✅ Runs SQL queries on a **SQLite database**  
+✅ Displays **query results in a table format**  
+✅ Provides **AI explanation** of each SQL query  
+✅ Built using **Streamlit** for an interactive web interface  
+
+---
+
+## 🗂️ Project Structure
+```
+📁 Project Folder
+ ├── app.py          # Main Streamlit application
+ ├── sql.py          # Script to create SQLite database and insert sample data
+ ├── Software_Employee.db   # (Generated automatically when sql.py runs)
+ ├── .env            # Store your Gemini API Key (to be created manually)
+ └── README.txt       # Project documentation
+```
+
+---
+
+## ⚙️ Installation Steps
+
+### 1. Clone or download the project
+```bash
+download from github - https://github.com/chaudharivaibhav471
+
+
+### 2. Install dependencies
+Make sure you have **Python 3.8+** installed, then install the following packages:
+```bash
+pip install streamlit google-generativeai python-dotenv pandas sqlite3
+```
+
+### 3. Set up your Gemini API Key
+Create a file named `.env` in the same directory and add:
+```
+GEMINI_API_KEY=your_api_key_here
+```
+You can get your Gemini API key from:  
+🔗 https://aistudio.google.com/app/apikey
+
+### 4. Create the SQLite database
+Run the following command to create and populate the `Software_Employee.db`:
+```bash
+python sql.py
+```
+This will create a table named **Employee** and insert sample employee records.
+
+---
+
+## 🚀 Run the Application
+Once your database and environment are ready, run:
+```bash
+streamlit run app.py
+```
+Open the displayed local URL (usually http://localhost:8501) in your browser.
+
+---
+
+## 💬 How to Use
+1. Type your question in **natural language** (e.g., *"Who earns the highest salary?"*)  
+2. Click **RUN**
+3. The app will:
+   - Generate the corresponding SQL query  
+   - Display the query in a code block  
+   - Execute the query on the `Software_Employee.db` database  
+   - Show the results in a table  
+   - Explain the SQL logic inside an expandable section  
+
+---
+
+## 📋 Example Questions
+You can try:
+- “List all employees.”
+- “Who earns more than 60,000?”
+- “Count the number of Data Engineers.”
+- “Show all Java Developers.”
+- “Find the employee with the highest salary.”
+- “Provide the average salary based on job role.”
+
+---
+
+## 🧩 Technical Details
+- **LLM Used:** Google Gemini 2.0 Flash  
+- **Database:** SQLite3 (`Software_Employee.db`)  
+- **Frontend:** Streamlit  
+- **Environment Variables:** Managed using `python-dotenv`  
+- **Libraries Used:**
+  - `sqlite3` – to interact with the database  
+  - `pandas` – to display results as a DataFrame  
+  - `streamlit` – to create a web UI  
+  - `google-generativeai` – to generate SQL queries and explanations  
+
+---
+
+## 📘 File Descriptions
+
+### `sql.py`
+- Creates a SQLite database named **Software_Employee.db**
+- Creates a table **Employee** with columns:
+  - `employee_name`
+  - `employee_role`
+  - `employee_salary`
+- Inserts 8 sample employee records.
+
+### `app.py`
+- Loads the Gemini API key from `.env`
+- Defines:
+  - `get_gemini_sql()` → converts natural question to SQL query
+  - `read_sql_query()` → executes the SQL query
+  - `explain_sql_query()` → generates a plain-language explanation
+- Provides an interactive Streamlit interface for user input and results.
+
+---
+
+## 🧪 Example Output
+
+### User Input:
+```
+Who earns the highest salary?
+```
+
+### Generated SQL Query:
+```sql
+SELECT * FROM Employee ORDER BY employee_salary DESC LIMIT 1
+```
+
+### Query Result:
+| employee_name        | employee_role   | employee_salary |
+|----------------------|-----------------|-----------------|
+| Himanshu Sangitrao   | Data Engineer   | 80000           |
+
+### Gemini Explanation:
+> The query selects all columns from the Employee table, orders the results by salary in descending order, and limits the output to only the top result — i.e., the employee with the highest salary.
+
+---
+
+## 📎 Notes
+- Make sure your `.env` file is in the same directory as `app.py`.
+- The database file `Software_Employee.db` must exist before running the Streamlit app.
+- Internet connection is required for Gemini API calls.
+
+---
+
+## 👨‍💻 Author
+**Developed by:** *Vaibhav Chaudhari*
+**Project:** *Gemini SQL Assistant using SQLite and Streamlit*
